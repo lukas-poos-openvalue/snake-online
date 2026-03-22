@@ -1,0 +1,14 @@
+<header>
+  <h1>Snake - The Multiplayer</h1>
+  <strong [style.color]="conn().isActive ? 'green' : 'red'">
+    {{ conn().isActive ? 'Connected' : 'Disconnected' }}
+  </strong>
+  <input
+    type="text"
+    [value]="userName() ?? ''"
+    (input)="userName.set($event.target.value)"
+    placeholder="Annonymous"
+  />
+</header>
+
+<router-outlet />

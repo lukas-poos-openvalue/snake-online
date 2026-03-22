@@ -1,0 +1,34 @@
+@if (game()) {
+<main>
+  <h2>{{game().name}} (State: {{game().state.tag}}) (Score: {{game().score}})</h2>
+  <div>
+    <table>
+      @for (row of game().board; track $index) {
+      <tr>
+        @for (cell of row; track $index) {
+        <td>{{cell.tag === "Snake" ? "🐍" : (cell.tag === "Food" ? "🍔" : "")}}</td>
+        }
+      </tr>
+      }
+    </table>
+    <aside>
+      <ul>
+        @for (player of game().players; track $index) {
+        <li>
+          @if (player.isActive) {
+          <span>🎮 </span>
+          } <span>{{player.name}} </span>
+          @if (player.isOwner) {
+          <span>👑</span>
+          }
+        </li>
+        }
+      </ul>
+      @if (isUserOwner() && game().state.tag !== "Running") {
+      <button (click)="restartGame()">{{game().state.tag === "Idle" ? "Start" : "Restart"}}</button>
+      <button (click)="closeGame()">Close</button>
+      }
+    </aside>
+  </div>
+</main>
+}
