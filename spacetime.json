@@ -1,0 +1,11 @@
+{
+  "database": "snake-online",
+  "module-path": "./backend",
+  "generate": [
+    { "language": "typescript", "out-dir": "./frontend/src/modules_bindings" }
+  ],
+  "server": "local",
+  "dev": {
+    "run": "cd frontend; just dev"
+  }
+}

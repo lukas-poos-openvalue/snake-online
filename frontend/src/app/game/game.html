@@ -1,0 +1,58 @@
+@if (activeGame().isLoading) {
+<div>Loading...</div>
+} @else if (activeGame().rows.length > 0) { @let game = activeGame().rows[0];
+<main>
+  <h2>{{game.name}}</h2>
+  <nav>
+    <span>Score: {{game.score}}</span>
+
+    @if (game.state.tag === 'GameOver') {
+    <div class="game-over">GAME OVER!</div>
+    } @else if (game.state.tag === 'Win') {
+    <div class="game-over">YOU ACTUALLY WON!</div>
+    } @if (isUserOwner() && game.state.tag !== "Running") {
+    <div class="button-group">
+      <button (click)="handleRestartGame()">
+        {{game.state.tag === "Idle" ? "Start" : "Restart"}}
+      </button>
+      <button (click)="handleCloseGame()">Close</button>
+    </div>
+    } @else if (!isUserOwner()) {
+    <div>
+      <button (click)="handleExitGame()">Exit</button>
+    </div>
+    }
+  </nav>
+
+  <aside>
+    @for (player of game.players; track $index) {
+    <div [class.active]="player.isActive">
+      <span>{{player.name}} </span>
+      @if (player.isOwner) {
+      <span>👑</span>
+      }
+    </div>
+    }
+  </aside>
+
+  <table>
+    @for (row of game.board.rows; track $index) {
+    <tr>
+      @for (cell of row.cells; track $index) {
+      <td>{{cell.tag === "Snake" ? "🐍" : (cell.tag === "Food" ? "🍔" : "")}}</td>
+      }
+    </tr>
+    }
+  </table>
+</main>
+<footer>
+  <div>
+    <button (click)="handleNextDirection('UP')">&uarr;</button>
+  </div>
+  <div>
+    <button (click)="handleNextDirection('LEFT')">&larr;</button>
+    <button (click)="handleNextDirection('DOWN')">&darr;</button>
+    <button (click)="handleNextDirection('RIGHT')">&rarr;</button>
+  </div>
+</footer>
+}

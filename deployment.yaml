@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snake-online
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: snake-online
+  template:
+    metadata:
+      labels:
+        app: snake-online
+    spec:
+      containers:
+        - name: snake-online-backend
+          image: registry.luke-homelab.de/snake-online-backend:${version}
+          ports:
+            - containerPort: 3000
+              name: backend-port
+        - name: snake-online-frontend
+          image: registry.luke-homelab.de/snake-online-frontend:${version}
+          ports:
+            - containerPort: 3001
+              name: frontend-port
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: snake-online-backend-service
+spec:
+  selector:
+    app: snake-online
+  ports:
+    - name: http-backend
+      port: 3000
+      targetPort: backend-port
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: snake-online-frontend-service
+spec:
+  selector:
+    app: snake-online
+  ports:
+    - name: http-frontend
+      port: 3001
+      targetPort: frontend-port
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: snake-online-ingress
+  annotations:
+    kubernetes.io/ingress.class: caddy
+spec:
+  ingressClassName: caddy
+  rules:
+    - host: snake.luke-homelab.de
+      http:
+        paths:
+          - path: /v1
+            pathType: Prefix
+            backend:
+              service:
+                name: snake-online-backend-service
+                port:
+                  number: 3000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: snake-online-frontend-service
+                port:
+                  number: 3001

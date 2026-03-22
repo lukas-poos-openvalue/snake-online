@@ -1,0 +1,21 @@
+pre = "rc.*"
+from_latest_tag = true
+ignore_merge_commits = true
+
+pre_bump_hooks = [
+  "just set-version {{version}}",
+  "just build-image {{version}}",
+]
+
+post_bump_hooks = [
+  "just deploy {{version}}",
+  "git push origin {{version}}",
+]
+
+[git_hooks.commit-msg]
+script = """#!/bin/sh
+set -e
+cog verify --file $1
+cog check
+"""
+

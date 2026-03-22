@@ -1,0 +1,16 @@
+<header>
+  <h1>🐍 Snake Online</h1>
+  <input
+    type="text"
+    [hidden]="myUser().isLoading"
+    [value]="myUser().rows[0]?.name ?? ''"
+    (input)="userNameUpdates$.next($event.target.value)"
+    placeholder="Annonymous"
+  />
+</header>
+
+@if(conn().isActive) {
+<router-outlet />
+} @else {
+<main>Waiting for server...</main>
+}

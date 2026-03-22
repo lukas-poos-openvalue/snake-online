@@ -1,0 +1,28 @@
+tools := "spacetime docker cargo"
+registry := "registry.luke-homelab.de"
+label := "snake-online-backend"
+
+default:
+    @just --list
+
+# Performs preliminary checks to guarantee that the other recipes can work properly
+_check:
+    @for tool in {{tools}}; do if ! command -v $tool >/dev/null 2>&1; then echo "$tool is not installed!"; exit 1; fi; done
+    @if ! docker login --get-login {{registry}} >/dev/null 2>&1; then echo "Please log into container registry!"; exit 1; fi
+
+# Builds the image for this project
+build-image version profile="": _check
+    docker image build --build-arg {{profile}} -t {{registry}}/{{label}}:{{version}} -t {{registry}}/{{label}}:latest .
+
+# Runs the image for this project as a container
+run-container version: _check
+    docker run -d --rm --replace --name {{label}} -p 3000:4200 {{registry}}/{{label}}:{{version}}
+
+# Sets the given version in the package.json
+set-version version: _check
+    cargo set-version {{version}}
+
+# Pushes the image to the registry
+push-image: _check
+    docker image push {{registry}}/{{label}}:{{version}}
+

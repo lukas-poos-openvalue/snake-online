@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+
+# Source control
+.git
+.gitignore
+
+# Testing an documentation
+tests/
+coverage/
+docs/
+
+# Build outputs
+dist/
+build/
