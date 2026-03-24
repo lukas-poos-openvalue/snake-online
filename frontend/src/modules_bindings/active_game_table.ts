@@ -12,7 +12,7 @@ import {
 import {
   GameState,
   PlayerDto,
-  BoardCellContent,
+  BoardDto,
 } from "./types";
 
 
@@ -26,5 +26,7 @@ export default __t.row({
   get players() {
     return __t.array(PlayerDto);
   },
-  board: __t.array(__t.array(BoardCellContent)),
+  get board() {
+    return BoardDto;
+  },
 });

@@ -3,9 +3,9 @@
   <h2>{{game().name}} (State: {{game().state.tag}}) (Score: {{game().score}})</h2>
   <div>
     <table>
-      @for (row of game().board; track $index) {
+      @for (row of game().board.rows; track $index) {
       <tr>
-        @for (cell of row; track $index) {
+        @for (cell of row.cells; track $index) {
         <td>{{cell.tag === "Snake" ? "🐍" : (cell.tag === "Food" ? "🍔" : "")}}</td>
         }
       </tr>

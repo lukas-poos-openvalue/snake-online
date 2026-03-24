@@ -8,17 +8,9 @@ import {
   t as __t,
   type AlgebraicTypeType as __AlgebraicTypeType,
   type Infer as __Infer,
-} from 'spacetimedb';
+} from "spacetimedb";
 
-// The tagged union or sum type for the algebraic type `BoardCellContent`.
-export const BoardCellContent = __t.enum('BoardCellContent', {
-  None: __t.unit(),
-  Snake: __t.unit(),
-  Food: __t.unit(),
-});
-export type BoardCellContent = __Infer<typeof BoardCellContent>;
-
-export const ActiveGameDto = __t.object('ActiveGameDto', {
+export const ActiveGameDto = __t.object("ActiveGameDto", {
   gameId: __t.u64(),
   name: __t.string(),
   score: __t.u32(),
@@ -28,19 +20,43 @@ export const ActiveGameDto = __t.object('ActiveGameDto', {
   get players() {
     return __t.array(PlayerDto);
   },
-  board: __t.array(__t.array(BoardCellContent)),
+  get board() {
+    return BoardDto;
+  },
 });
 export type ActiveGameDto = __Infer<typeof ActiveGameDto>;
 
-export const ActivePlayer = __t.object('ActivePlayer', {
+export const ActivePlayer = __t.object("ActivePlayer", {
   gameId: __t.u64(),
   scheduledAt: __t.scheduleAt(),
   activePlayer: __t.identity(),
 });
 export type ActivePlayer = __Infer<typeof ActivePlayer>;
 
+// The tagged union or sum type for the algebraic type `BoardCellContent`.
+export const BoardCellContent = __t.enum("BoardCellContent", {
+  None: __t.unit(),
+  Snake: __t.unit(),
+  Food: __t.unit(),
+});
+export type BoardCellContent = __Infer<typeof BoardCellContent>;
+
+export const BoardDto = __t.object("BoardDto", {
+  get rows() {
+    return __t.array(BoardRowDto);
+  },
+});
+export type BoardDto = __Infer<typeof BoardDto>;
+
+export const BoardRowDto = __t.object("BoardRowDto", {
+  get cells() {
+    return __t.array(BoardCellContent);
+  },
+});
+export type BoardRowDto = __Infer<typeof BoardRowDto>;
+
 // The tagged union or sum type for the algebraic type `Direction`.
-export const Direction = __t.enum('Direction', {
+export const Direction = __t.enum("Direction", {
   Up: __t.unit(),
   Down: __t.unit(),
   Left: __t.unit(),
@@ -48,7 +64,7 @@ export const Direction = __t.enum('Direction', {
 });
 export type Direction = __Infer<typeof Direction>;
 
-export const Food = __t.object('Food', {
+export const Food = __t.object("Food", {
   gameId: __t.u64(),
   get position() {
     return Position;
@@ -56,7 +72,7 @@ export const Food = __t.object('Food', {
 });
 export type Food = __Infer<typeof Food>;
 
-export const Game = __t.object('Game', {
+export const Game = __t.object("Game", {
   gameId: __t.u64(),
   scheduledAt: __t.scheduleAt(),
   owner: __t.identity(),
@@ -68,7 +84,7 @@ export const Game = __t.object('Game', {
 });
 export type Game = __Infer<typeof Game>;
 
-export const GameCleanup = __t.object('GameCleanup', {
+export const GameCleanup = __t.object("GameCleanup", {
   scheduledId: __t.u64(),
   scheduledAt: __t.scheduleAt(),
   gameId: __t.u64(),
@@ -76,7 +92,7 @@ export const GameCleanup = __t.object('GameCleanup', {
 export type GameCleanup = __Infer<typeof GameCleanup>;
 
 // The tagged union or sum type for the algebraic type `GameState`.
-export const GameState = __t.enum('GameState', {
+export const GameState = __t.enum("GameState", {
   Idle: __t.unit(),
   Running: __t.unit(),
   GameOver: __t.unit(),
@@ -85,7 +101,7 @@ export const GameState = __t.enum('GameState', {
 });
 export type GameState = __Infer<typeof GameState>;
 
-export const JoinableGameDto = __t.object('JoinableGameDto', {
+export const JoinableGameDto = __t.object("JoinableGameDto", {
   gameId: __t.u64(),
   name: __t.string(),
   ownerName: __t.string(),
@@ -93,15 +109,18 @@ export const JoinableGameDto = __t.object('JoinableGameDto', {
 });
 export type JoinableGameDto = __Infer<typeof JoinableGameDto>;
 
-export const NextDirection = __t.object('NextDirection', {
+export const NextDirection = __t.object("NextDirection", {
   gameId: __t.u64(),
-  get direction() {
+  get previous() {
+    return Direction;
+  },
+  get next() {
     return Direction;
   },
 });
 export type NextDirection = __Infer<typeof NextDirection>;
 
-export const PlayerDto = __t.object('PlayerDto', {
+export const PlayerDto = __t.object("PlayerDto", {
   identity: __t.identity(),
   name: __t.string(),
   isOwner: __t.bool(),
@@ -109,13 +128,13 @@ export const PlayerDto = __t.object('PlayerDto', {
 });
 export type PlayerDto = __Infer<typeof PlayerDto>;
 
-export const Position = __t.object('Position', {
+export const Position = __t.object("Position", {
   x: __t.u8(),
   y: __t.u8(),
 });
 export type Position = __Infer<typeof Position>;
 
-export const Snake = __t.object('Snake', {
+export const Snake = __t.object("Snake", {
   gameId: __t.u64(),
   get body() {
     return __t.array(Position);
@@ -123,10 +142,11 @@ export const Snake = __t.object('Snake', {
 });
 export type Snake = __Infer<typeof Snake>;
 
-export const User = __t.object('User', {
+export const User = __t.object("User", {
   identity: __t.identity(),
   name: __t.option(__t.string()),
   online: __t.bool(),
   gameId: __t.u64(),
 });
 export type User = __Infer<typeof User>;
+

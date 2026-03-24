@@ -26,13 +26,23 @@ struct JoinableGameDto {
 }
 
 #[derive(SpacetimeType)]
+struct BoardRowDto {
+    cells: Vec<BoardCellContent>,
+}
+
+#[derive(SpacetimeType)]
+struct BoardDto {
+    rows: Vec<BoardRowDto>,
+}
+
+#[derive(SpacetimeType)]
 struct ActiveGameDto {
     game_id: u64,
     name: String,
     score: u32,
     state: GameState,
     players: Vec<PlayerDto>,
-    board: Vec<Vec<BoardCellContent>>,
+    board: BoardDto,
 }
 
 #[spacetimedb::view(accessor = my_user, public)]
@@ -97,21 +107,23 @@ fn active_game(ctx: &ViewContext) -> Option<ActiveGameDto> {
                 is_owner: game.owner == p.identity,
             })
             .collect(),
-        board: (0..BOARD_HEIGHT)
-            .map(|y| {
-                (0..BOARD_WIDTH)
-                    .map(|x| {
-                        let pos = Position { x, y };
-                        if snake.body.contains(&pos) {
-                            BoardCellContent::Snake
-                        } else if food.position == pos {
-                            BoardCellContent::Food
-                        } else {
-                            BoardCellContent::None
-                        }
-                    })
-                    .collect()
-            })
-            .collect(),
+        board: BoardDto {
+            rows: (0..BOARD_HEIGHT)
+                .map(|y| BoardRowDto {
+                    cells: (0..BOARD_WIDTH)
+                        .map(|x| {
+                            let pos = Position { x, y };
+                            if snake.body.contains(&pos) {
+                                BoardCellContent::Snake
+                            } else if food.position == pos {
+                                BoardCellContent::Food
+                            } else {
+                                BoardCellContent::None
+                            }
+                        })
+                        .collect(),
+                })
+                .collect(),
+        },
     });
 }

@@ -3,7 +3,7 @@ default:
 
 # Starts the full application in development mode
 dev:
-    @spacetime dev --server local --delete-data --client-lang typescript --module-path backend --module-bindings-path frontend/src/modules_bindings
+    @spacetime dev --server local --delete-data
 
 # Build the application
 build:
