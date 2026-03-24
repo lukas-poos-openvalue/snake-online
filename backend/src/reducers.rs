@@ -60,6 +60,21 @@ fn create_game(ctx: &ReducerContext, name: String) -> Result<(), String> {
         return Err("Name must not be empty".to_string());
     }
 
+    // Check if user already is part of a game
+    let user = ctx
+        .db
+        .user()
+        .identity()
+        .find(ctx.sender())
+        .ok_or("No user")?;
+    if user.game_id != 0 {
+        if let Some(game) = ctx.db.game().game_id().find(user.game_id) {
+            if game.state != GameState::Closed {
+                return Err("User is already part of a game!".to_string());
+            }
+        }
+    }
+
     // Create the game and associated records
     let game = ctx.db.game().insert(Game::new(ctx.sender(), name));
     ctx.db.active_player().insert(game.provide_active_player());
@@ -72,12 +87,6 @@ fn create_game(ctx: &ReducerContext, name: String) -> Result<(), String> {
         .insert(game.provide_next_direction());
 
     // Update the user
-    let user = ctx
-        .db
-        .user()
-        .identity()
-        .find(ctx.sender())
-        .ok_or("No user")?;
     ctx.db.user().identity().update(User {
         game_id: game.game_id,
         ..user

@@ -4,5 +4,5 @@ import { Game } from './game/game';
 
 export const routes: Routes = [
   { path: '', component: Lobby },
-  { path: 'games/:id', component: Game },
+  { path: 'game', component: Game },
 ];

@@ -36,7 +36,7 @@ export class App implements OnDestroy {
     effect(() => {
       const myGame = this.myGame().rows[0];
       if (myGame && this.activatedRoute.component !== Game) {
-        this.router.navigate(['/games', myGame.gameId]);
+        this.router.navigate(['/game']);
       }
     });
   }
