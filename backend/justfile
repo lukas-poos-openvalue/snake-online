@@ -5,13 +5,17 @@ default:
 build:
     @spacetime build
 
+# Builds the spacetimedb backend in debug mode
+build-debug:
+    @spacetime build --debug
+
 # Generates the module bindings and puts them into the frontend project
 generate:
     @spacetime generate
 
 # Publish the module to local database
-publish:
-    @spacetime publish --delete-data --yes spacetimedb-demo-snake
+publish-local:
+    @spacetime publish --server local snake-online
 
 # Deploys the application to the maincloud
 deploy:

@@ -1,4 +1,4 @@
 export const environment = {
-  SPACETIMEDB_HOST: 'https://maincloud.spacetimedb.com',
+  SPACETIMEDB_HOST: 'http://localhost:3000',
   SPACETIMEDB_DB_NAME: 'snake-online',
 };

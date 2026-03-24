@@ -36,6 +36,7 @@ import {
 // Import all reducer arg schemas
 import CloseGameReducer from "./close_game_reducer";
 import CreateGameReducer from "./create_game_reducer";
+import ExitGameReducer from "./exit_game_reducer";
 import JoinGameReducer from "./join_game_reducer";
 import RestartGameReducer from "./restart_game_reducer";
 import SetNextDirectionReducer from "./set_next_direction_reducer";
@@ -87,6 +88,7 @@ const tablesSchema = __schema({
 const reducersSchema = __reducers(
   __reducerSchema("close_game", CloseGameReducer),
   __reducerSchema("create_game", CreateGameReducer),
+  __reducerSchema("exit_game", ExitGameReducer),
   __reducerSchema("join_game", JoinGameReducer),
   __reducerSchema("restart_game", RestartGameReducer),
   __reducerSchema("set_next_direction", SetNextDirectionReducer),

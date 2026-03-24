@@ -203,14 +203,21 @@ pub fn pick_next_active_player(
         .by_game_id_and_online()
         .filter((active_player.game_id, true))
         .collect();
-
-    // pick one player at random to be the active player
-    if let Some(next_player) = players.choose(&mut ctx.rng()) {
-        ctx.db.active_player().game_id().update(ActivePlayer {
-            active_player: next_player.identity,
-            ..active_player
-        });
+    if players.len() == 1 && players.first().unwrap().identity == active_player.active_player {
+        return Ok(());
     }
+
+    // pick another player at random to be the active player
+    let mut next_player_id = active_player.active_player;
+    while next_player_id == active_player.active_player {
+        if let Some(next_player) = players.choose(&mut ctx.rng()) {
+            next_player_id = next_player.identity;
+        }
+    }
+    ctx.db.active_player().game_id().update(ActivePlayer {
+        active_player: next_player_id,
+        ..active_player
+    });
 
     return Ok(());
 }
@@ -300,6 +307,33 @@ fn close_game(ctx: &ReducerContext, game_id: u64) {
 }
 
 #[spacetimedb::reducer]
+fn exit_game(ctx: &ReducerContext, game_id: u64) -> Result<(), String> {
+    // Get the game and check if the user is not the owner (cannot leave in that case)
+    let game = ctx.db.game().game_id().find(game_id).ok_or("no game")?;
+    if game.owner == ctx.sender() {
+        return Err("cannot exit the game as the owner of the game".to_string());
+    }
+
+    // Update the user
+    let user = ctx
+        .db
+        .user()
+        .identity()
+        .find(ctx.sender())
+        .ok_or("no user")?;
+    ctx.db.user().identity().update(User { game_id: 0, ..user });
+
+    // If the user is the active player, pick another active player
+    if let Some(active_player) = ctx.db.active_player().game_id().find(game_id) {
+        if active_player.active_player == ctx.sender() {
+            pick_next_active_player(ctx, active_player)?;
+        }
+    }
+
+    Ok(())
+}
+
+#[spacetimedb::reducer]
 pub fn remove_closed_games(ctx: &ReducerContext, game_cleanup: GameCleanup) {
     // Remove all records related to the game
     ctx.db.game().game_id().delete(game_cleanup.game_id);
@@ -324,6 +358,16 @@ pub fn remove_closed_games(ctx: &ReducerContext, game_cleanup: GameCleanup) {
         ctx.db.user().identity().update(User {
             game_id: 0u64,
             ..player
+        });
+    }
+}
+
+#[spacetimedb::reducer]
+fn update_game_speed(ctx: &ReducerContext, game_id: u64, interval_ms: u64) {
+    if let Some(game) = ctx.db.game().game_id().find(game_id) {
+        ctx.db.game().game_id().update(Game {
+            scheduled_at: ScheduleAt::Interval(Duration::from_millis(interval_ms).into()),
+            ..game
         });
     }
 }

@@ -10,13 +10,18 @@ build:
     @cd backend; just build
     @cd frontend; just build
 
+# Build the application parts in debug mode
+build-debug:
+    @cd backend; just build-debug
+    @cd frontend; just build-debug
+
 # Perform code generation
 generate:
     @cd backend; just generate
 
 # Publish the application locally
-publish:
-    @cd backend; just publish
+publish-local:
+    @cd backend; just publish-local
 
 # Deploys the application
 deploy: build

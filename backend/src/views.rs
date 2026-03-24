@@ -98,15 +98,19 @@ fn active_game(ctx: &ViewContext) -> Option<ActiveGameDto> {
         name: game.name,
         score: snake.body.len() as u32 - 3,
         state: game.state,
-        players: players
-            .iter()
-            .map(|p| PlayerDto {
-                identity: p.identity,
-                name: p.name.clone().unwrap_or("Annonymous".to_string()),
-                is_active: active_player.active_player == p.identity,
-                is_owner: game.owner == p.identity,
-            })
-            .collect(),
+        players: {
+            let mut result = players
+                .iter()
+                .map(|p| PlayerDto {
+                    identity: p.identity,
+                    name: p.name.clone().unwrap_or("Annonymous".to_string()),
+                    is_active: active_player.active_player == p.identity,
+                    is_owner: game.owner == p.identity,
+                })
+                .collect::<Vec<PlayerDto>>();
+            result.sort_by(|p1, p2| p1.name.cmp(&p2.name));
+            result
+        },
         board: BoardDto {
             rows: (0..BOARD_HEIGHT)
                 .map(|y| BoardRowDto {

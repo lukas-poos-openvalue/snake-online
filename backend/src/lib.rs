@@ -7,7 +7,7 @@ use spacetimedb::{
 
 const BOARD_WIDTH: u8 = 15;
 const BOARD_HEIGHT: u8 = 15;
-const PLAYER_TURN_DURATION: Duration = Duration::from_secs(3);
+const PLAYER_TURN_DURATION: Duration = Duration::from_secs(2);
 const TICK_INTERVAL: Duration = Duration::from_millis(250);
 
 #[derive(SpacetimeType, PartialEq, Clone)]

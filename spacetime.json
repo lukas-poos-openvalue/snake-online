@@ -1,10 +1,10 @@
 {
-  "database": "spacetimedb-demo-snake",
+  "database": "snake-online",
   "module-path": "./backend",
   "generate": [
     { "language": "typescript", "out-dir": "./frontend/src/modules_bindings" }
   ],
-  "server": "local",
+  "server": "maincloud",
   "dev": {
     "run": "cd frontend; just dev"
   }

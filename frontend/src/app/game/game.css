@@ -1,12 +1,51 @@
-main div {
+nav {
+  height: 3rem;
   display: flex;
-  gap: 1em;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+nav .button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+aside {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+}
+
+aside div {
+  border: 1px solid var(--clr-secondary);
+  border-radius: 16px;
+  padding: 0.5rem;
+  font-size: small;
+
+  &.active {
+    border: 3px solid var(--clr-accent);
+  }
+}
+
+.game-over {
+  font-size: large;
+  font-weight: bold;
+  color: var(--clr-primary);
+}
+
+table {
+  min-width: max-content;
+  margin-inline: auto;
 }
 
 table,
 tr,
 td {
-  border: 1px solid black;
+  border: 1px solid;
   border-collapse: collapse;
 }
 

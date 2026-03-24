@@ -1,14 +1,16 @@
 <header>
-  <h1>Snake - The Multiplayer</h1>
-  <strong [style.color]="conn().isActive ? 'green' : 'red'">
-    {{ conn().isActive ? 'Connected' : 'Disconnected' }}
-  </strong>
+  <h1>🐍 Snake Online</h1>
   <input
     type="text"
-    [value]="userName() ?? ''"
-    (input)="userName.set($event.target.value)"
+    [hidden]="myUser().isLoading"
+    [value]="myUser().rows[0]?.name ?? ''"
+    (input)="userNameUpdates$.next($event.target.value)"
     placeholder="Annonymous"
   />
 </header>
 
+@if(conn().isActive) {
 <router-outlet />
+} @else {
+<main>Waiting for server...</main>
+}

@@ -1,19 +1,19 @@
 <main>
   <section>
-    <h2>Join Game</h2>
-    @if (joinableGames().rows.length === 0) {
-    <p>No other games</p>
-    } @else {
-    <ul>
-      @for(game of joinableGames().rows; track game.gameId) {
-      <li (click)="joinGame(game.gameId)">{{game.name}}</li>
-      }
-    </ul>
-    }
-  </section>
-  <section>
     <h2>Create Game</h2>
     <input type="text" [value]="newGameName()" (input)="newGameName.set($event.target.value)" />
     <button (click)="createGame()">Create</button>
   </section>
+  @if (joinableGames().isLoading) {
+  <section>Loading...</section>
+  } @else if (joinableGames().rows.length > 0) {
+  <section>
+    <h2>Join Game</h2>
+    @if (joinableGames().rows.length === 0) {
+    <p>(No other games)</p>
+    } @else { @for(game of joinableGames().rows; track game.gameId) {
+    <button (click)="joinGame(game.gameId)">{{game.name}}</button>
+    } }
+  </section>
+  }
 </main>

@@ -1,5 +1,5 @@
 {
-  "database": "spacetimedb-demo-snake",
+  "database": "snake-online",
   "module-path": "./backend",
   "generate": [
     { "language": "typescript", "out-dir": "./frontend/src/modules_bindings" }

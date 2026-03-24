@@ -8,6 +8,7 @@ import { type Infer as __Infer } from "spacetimedb";
 // Import all reducer arg schemas
 import CloseGameReducer from "../close_game_reducer";
 import CreateGameReducer from "../create_game_reducer";
+import ExitGameReducer from "../exit_game_reducer";
 import JoinGameReducer from "../join_game_reducer";
 import RestartGameReducer from "../restart_game_reducer";
 import SetNextDirectionReducer from "../set_next_direction_reducer";
@@ -15,6 +16,7 @@ import SetUserNameReducer from "../set_user_name_reducer";
 
 export type CloseGameParams = __Infer<typeof CloseGameReducer>;
 export type CreateGameParams = __Infer<typeof CreateGameReducer>;
+export type ExitGameParams = __Infer<typeof ExitGameReducer>;
 export type JoinGameParams = __Infer<typeof JoinGameReducer>;
 export type RestartGameParams = __Infer<typeof RestartGameReducer>;
 export type SetNextDirectionParams = __Infer<typeof SetNextDirectionReducer>;

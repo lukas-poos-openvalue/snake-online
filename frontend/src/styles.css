@@ -1,1 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --font-family: system-ui;
+  --font-size: 1.125rem;
+
+  --clr-primary: green;
+  --clr-secondary: darkgreen;
+  --clr-accent: lightgreen;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: 1.5;
+  margin: 0;
+  width: min(65ch, 100% - 4rem);
+  min-width: fit-content;
+  margin-inline: auto;
+}
+
+input {
+  border: 3px solid var(--clr-primary);
+  border-radius: 16px;
+  padding: 1ex 2ex;
+  outline: none;
+
+  &:hover {
+    outline: solid var(--clr-accent) 2px;
+  }
+  &:focus {
+    border: 3px solid var(--clr-secondary);
+  }
+}
+
+button {
+  border-width: 3px;
+  border-color: var(--clr-primary);
+  border-radius: 16px;
+  padding: 1ex 2ex;
+
+  &:hover {
+    outline: solid var(--clr-accent) 2px;
+  }
+  &:focus {
+    border: 4px solid var(--clr-secondary);
+  }
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  text-decoration: underline;
+  text-decoration-color: var(--clr-primary);
+  text-underline-offset: 0.6rem;
+  text-decoration-thickness: 3px;
+}

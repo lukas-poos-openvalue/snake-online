@@ -3,12 +3,16 @@ default:
 
 # Builds the frontend application
 dev:
-    @npm run start
+    @npm run dev
 
 # Builds the frontend application
 build:
     @npm run build
 
-# Deploys the application to the maincloud
+# Builds the spacetimedb backend in debug mode
+build-debug:
+    @npm run build-debug
+
+# Deploys the application a location
 deploy:
     @echo "TODO implement me!"
