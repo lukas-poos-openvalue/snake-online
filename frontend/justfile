@@ -1,0 +1,14 @@
+default:
+    @just --list
+
+# Builds the frontend application
+dev:
+    @npm run start
+
+# Builds the frontend application
+build:
+    @npm run build
+
+# Deploys the application to the maincloud
+deploy:
+    @echo "TODO implement me!"

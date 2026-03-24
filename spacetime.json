@@ -1,0 +1,5 @@
+{
+  "dev": {
+    "run": "cd frontend; just dev"
+  }
+}

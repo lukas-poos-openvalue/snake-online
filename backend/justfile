@@ -1,0 +1,20 @@
+project_root := "{{ justfile_directory() }}/.."
+
+default:
+    @just --list
+
+# Builds the spacetimedb backend
+build:
+    @spacetime build
+
+# Generates the module bindings and puts them into the frontend project
+generate:
+    @spacetime generate --lang typescript --out-dir {{ project_root }}/frontend/src/modules_bindings
+
+# Publish the module to local database
+publish:
+    @spacetime publish --server local --delete-data spacetime-demo
+
+# Deploys the application to the maincloud
+deploy:
+    @echo "TODO implement me!"

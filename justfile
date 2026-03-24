@@ -1,25 +1,24 @@
 default:
-    just --list
+    @just --list
 
-# Start the backend in development mode using the "spacetime dev" command
-dev-backend:
-    spacetime dev --server local --client-lang typescript --module-path backend --module-bindings-path frontend/src/modules_bindings
+# Starts the full application in development mode
+dev:
+    @spacetime dev --server local --delete-data --client-lang typescript --module-path backend --module-bindings-path frontend/src/modules_bindings
 
-# Start the frontend in development mode using the "ng serve" command
-dev-frontend:
-    cd frontend && ng serve --open
-
-# Start the application in development mode
-dev: dev-backend dev-frontend
-
-# Generate the module bindings
-generate:
-    spacetime generate --lang typescript --module-path backend --out-dir frontend/src/modules_bindings
-
-# Build the module
+# Build the application
 build:
-    spacetime build --module-path backend
+    @cd backend; just build
+    @cd frontend; just build
 
-# Publish the module to local database
+# Perform code generation
+generate:
+    @cd backend; just generate
+
+# Publish the application locally
 publish:
-    spacetime publish --server local --module-path backend --delete-data spacetime-demo
+    @cd backend; just publish
+
+# Deploys the application
+deploy: build
+    @cd backend; just deploy
+    @cd frontend; just deploy
