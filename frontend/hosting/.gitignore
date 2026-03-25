@@ -1,0 +1,4 @@
+# contains static files that are hosted
+target
+static/*
+!static/.gitkeep

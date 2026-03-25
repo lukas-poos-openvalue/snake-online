@@ -8,11 +8,18 @@ dev:
 # Builds the frontend application
 build:
     @npm run build
+    @just build-hosting
 
-# Builds the spacetimedb backend in debug mode
-build-debug:
-    @npm run build-debug
+# Builds the spacetimedb backend in development mode
+build-dev:
+    @npm run build-dev
+    @just build-hosting
+
+# Builds the file server that hosts the angular application
+build-hosting:
+    @cp -R dist/frontend/browser/* hosting/static
+    @cd hosting; cargo build --release
 
 # Deploys the application a location
-deploy:
+deploy: build
     @echo "TODO implement me!"

@@ -10,10 +10,10 @@ build:
     @cd backend; just build
     @cd frontend; just build
 
-# Build the application parts in debug mode
-build-debug:
-    @cd backend; just build-debug
-    @cd frontend; just build-debug
+# Build the application parts in development mode
+build-dev:
+    @cd backend; just build-dev
+    @cd frontend; just build-dev
 
 # Perform code generation
 generate:

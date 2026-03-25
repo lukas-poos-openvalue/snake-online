@@ -5,8 +5,8 @@ default:
 build:
     @spacetime build
 
-# Builds the spacetimedb backend in debug mode
-build-debug:
+# Builds the spacetimedb backend in development mode
+build-dev:
     @spacetime build --debug
 
 # Generates the module bindings and puts them into the frontend project

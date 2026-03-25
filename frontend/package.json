@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "ng serve",
     "build": "ng build",
-    "build-debug": "ng build --configuration development",
+    "build-dev": "ng build --configuration development",
     "test": "ng test"
   },
   "private": true,
