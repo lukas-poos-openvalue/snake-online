@@ -5,21 +5,27 @@ default:
 dev:
     @npm run dev
 
+# Install all dependencies in the node_modules
+install:
+    @npm ci
+
 # Builds the frontend application
 build:
     @npm run build
-    @just build-hosting
 
 # Builds the spacetimedb backend in development mode
 build-dev:
     @npm run build-dev
-    @just build-hosting
 
 # Builds the file server that hosts the angular application
 build-hosting:
     @cp -R dist/frontend/browser/* hosting/static
     @cd hosting; cargo build --release
 
+# Builds an image
+build-image:
+    @docker build -t snake-online-frontend:latest .
+
 # Deploys the application a location
-deploy: build
+deploy: build-image
     @echo "TODO implement me!"

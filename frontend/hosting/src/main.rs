@@ -5,6 +5,6 @@ extern crate rocket;
 
 #[launch]
 fn rocket() -> _ {
-    static PROJECT_DIR: Dir = include_dir!("static");
-    rocket::build().mount("/", StaticFiles::from(&PROJECT_DIR))
+    static STATIC_DIR: Dir = include_dir!("static");
+    rocket::build().mount("/", StaticFiles::from(&STATIC_DIR))
 }
