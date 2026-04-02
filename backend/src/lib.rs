@@ -5,8 +5,8 @@ use spacetimedb::{
     SpacetimeType,
 };
 
-const BOARD_WIDTH: u8 = 10;
-const BOARD_HEIGHT: u8 = 10;
+const BOARD_WIDTH: u8 = 12;
+const BOARD_HEIGHT: u8 = 12;
 const PLAYER_TURN_DURATION: Duration = Duration::from_secs(2);
 const TICK_INTERVAL: Duration = Duration::from_millis(250);
 

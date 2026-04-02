@@ -28,7 +28,7 @@ export class App implements OnDestroy, AfterViewInit {
     this.userNameUpdatesSub = this.userNameUpdates$
       .pipe(
         filter((name) => name?.trim() !== ''),
-        debounceTime(200),
+        debounceTime(250),
       )
       .subscribe((name) => this.setUserName({ name }));
 
