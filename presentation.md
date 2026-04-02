@@ -315,5 +315,5 @@ fn close_game(ctx: &ReducerContext, game_id: u64) {
 
 ## Demo: Snake Online
 Now it is demo time! 
-- [GitHub](https://github.com/)
+- [GitHub](https://github.com/lukas-poos-openvalue/snake-online)
 - [Demo](https://snake.luke-homelab.de)
