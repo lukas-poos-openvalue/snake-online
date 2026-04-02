@@ -1,9 +1,9 @@
 {
-  "name": "frontend",
+  "name": "snake-online-frontend",
   "version": "0.0.0",
   "scripts": {
     "dev": "ng serve",
-    "build": "ng build",
+    "build-prod": "ng build",
     "build-dev": "ng build --configuration development",
     "test": "ng test"
   },
@@ -16,7 +16,7 @@
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
-    "spacetimedb": "2.0.2",
+    "spacetimedb": "2.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

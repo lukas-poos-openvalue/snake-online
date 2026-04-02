@@ -21,7 +21,7 @@ const onDisconnect = () => {
 };
 
 const onConnectError = (_ctx: ErrorContext, err: Error) => {
-  console.log('Error connecting to SpacetimeDB:', err);
+  console.log(`Error connecting to SpacetimeDB (Host: ${HOST}, Database: ${DB_NAME}):`, err);
 };
 
 export const appConfig: ApplicationConfig = {

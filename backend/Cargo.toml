@@ -1,5 +1,5 @@
 [package]
-name = "spacetime_demo_backend"
+name = "snake_online_backend"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,5 +7,5 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-spacetimedb = "2.0.*"
+spacetimedb = "2.1.*"
 log = "0.4"

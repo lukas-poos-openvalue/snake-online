@@ -1,7 +1,7 @@
 nav {
   height: 3rem;
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
@@ -54,4 +54,15 @@ td {
   height: 30px;
   text-align: center;
   align-content: center;
+}
+
+footer {
+  margin-top: 1em;
+}
+
+footer div {
+  display: flex;
+  justify-content: center;
+  gap: 0.75em;
+  margin-bottom: 0.5em;
 }

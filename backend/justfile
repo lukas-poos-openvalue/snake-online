@@ -2,7 +2,7 @@ default:
     @just --list
 
 # Builds the spacetimedb backend
-build:
+build-prod:
     @spacetime build
 
 # Builds the spacetimedb backend in development mode
@@ -16,6 +16,14 @@ generate:
 # Publish the module to local database
 publish-local:
     @spacetime publish --server local snake-online
+
+# Create an image with the production profile
+image-prod:
+    @docker build --build-arg profile=prod -t snake-online-backend:latest .
+
+# Create an image with the development profile
+image-dev:
+    @docker build --build-arg profile=dev -t snake-online-backend:latest .
 
 # Deploys the application to the maincloud
 deploy:

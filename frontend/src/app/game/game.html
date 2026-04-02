@@ -1,5 +1,5 @@
 @if (activeGame().isLoading) {
-<main>Loading...</main>
+<div>Loading...</div>
 } @else if (activeGame().rows.length > 0) { @let game = activeGame().rows[0];
 <main>
   <h2>{{game.name}}</h2>
@@ -45,4 +45,14 @@
     }
   </table>
 </main>
+<footer>
+  <div>
+    <button (click)="handleNextDirection('UP')">&uarr;</button>
+  </div>
+  <div>
+    <button (click)="handleNextDirection('LEFT')">&larr;</button>
+    <button (click)="handleNextDirection('DOWN')">&darr;</button>
+    <button (click)="handleNextDirection('RIGHT')">&rarr;</button>
+  </div>
+</footer>
 }

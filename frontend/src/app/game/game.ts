@@ -71,6 +71,24 @@ export class Game {
     this.setNextDirection({ gameId: this.game().gameId, direction });
   }
 
+  handleNextDirection(directionStr: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT') {
+    let direction: Direction | undefined = undefined;
+    if (directionStr === 'UP') {
+      direction = Direction.Up;
+    } else if (directionStr === 'DOWN') {
+      direction = Direction.Down;
+    } else if (directionStr === 'LEFT') {
+      direction = Direction.Left;
+    } else if (directionStr === 'RIGHT') {
+      direction = Direction.Right;
+    }
+
+    if (!direction) {
+      return;
+    }
+    this.setNextDirection({ gameId: this.game().gameId, direction });
+  }
+
   handleRestartGame() {
     this.restartGame({ gameId: this.game().gameId });
   }

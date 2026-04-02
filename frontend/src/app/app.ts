@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, effect, inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { injectReducer, injectSpacetimeDB, injectTable } from 'spacetimedb/angular';
 import { reducers, tables } from '../modules_bindings';
@@ -11,7 +11,7 @@ import { debounceTime, filter, Subject, Subscription } from 'rxjs';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App implements OnDestroy {
+export class App implements OnDestroy, AfterViewInit {
   readonly router = inject(Router);
   readonly activatedRoute = inject(ActivatedRoute);
 
@@ -43,5 +43,9 @@ export class App implements OnDestroy {
 
   ngOnDestroy(): void {
     this.userNameUpdatesSub?.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
+    window.scrollTo(0, 1);
   }
 }

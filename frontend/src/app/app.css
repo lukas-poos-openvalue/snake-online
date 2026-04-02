@@ -2,9 +2,9 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-inline: 2rem;
+  margin-inline: 1.5rem;
   min-width: max-content;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 main {

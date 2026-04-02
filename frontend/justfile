@@ -10,22 +10,21 @@ install:
     @npm ci
 
 # Builds the frontend application
-build:
-    @npm run build
+build-prod:
+    @npm run build-prod
 
 # Builds the spacetimedb backend in development mode
 build-dev:
     @npm run build-dev
 
-# Builds the file server that hosts the angular application
-build-hosting:
-    @cp -R dist/frontend/browser/* hosting/static
-    @cd hosting; cargo build --release
+# Builds an image with the development profile
+image-prod:
+    @docker build --build-arg profile=prod -t snake-online-frontend:latest .
 
-# Builds an image
-build-image:
-    @docker build -t snake-online-frontend:latest .
+# Builds an image with the development profile
+image-dev:
+    @docker build --build-arg profile=dev -t snake-online-frontend:latest .
 
 # Deploys the application a location
-deploy: build-image
+deploy: image-prod
     @echo "TODO implement me!"
