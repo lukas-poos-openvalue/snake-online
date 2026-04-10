@@ -1,4 +1,5 @@
 # SpacetimeDB
+
 ```
 A real-time backend framework and database for apps and games!
 ```
@@ -6,6 +7,7 @@ A real-time backend framework and database for apps and games!
 ---
 
 # Table of Content
+
 - Introduction
   - What is SpacetimeDB?
   - The "Zen" of SpacetimeDB
@@ -23,12 +25,18 @@ A real-time backend framework and database for apps and games!
 # Introduction
 
 ## What is SpacetimeDB?
-- A database that is also a server (or: a persistent and ACID-compliant application server)
+
+- A database that is also a server (or: a persistent and ACID-compliant
+  application server)
 - Provides fully featured relational database system
 - Provides means to run application logic on the data
-- No separation of database and application server simplifies the entire system immensely
+- No separation of database and application server simplifies the entire system
+  immensely
+- Recently got alot of attention due to 2.0 release video ("1000x faster than
+  your database - SpacetimeDB 2.0")
 
 ## The "Zen" of SpacetimeDB
+
 - Five core principles make the applications you build stupidly easy
   - Everything is a Table
     - no separate cache, no Redis, no in-memory state
@@ -50,6 +58,7 @@ A real-time backend framework and database for apps and games!
 ---
 
 ## Language Support
+
 - Server Logic / Database Modules
   - Rust / WASM
   - C# / WASM
@@ -61,19 +70,21 @@ A real-time backend framework and database for apps and games!
   - C++ for Unreal Engine
 
 ## Key Architecture
+
 - Host: Server that runs database
-- Database: 
+- Database:
   - Runs on a host
   - Modules can be published to a database
 - Module:
   - Collection of tables / reducers / ...
   - Written in C#, Rust, TypeScript
 - Table: Same as in any relational database
-- Reducer: 
+- Reducer:
   - Callable function that interacts with the database
   - Atomic by nature
 - Procedure:
-  - Callable function that can interact with the database (requires explicit transaction management)
+  - Callable function that can interact with the database (requires explicit
+    transaction management)
   - Also allows side effects (HTTP requests, IO operations, etc)
 - View:
   - Read-only function that just return results
@@ -93,26 +104,31 @@ A real-time backend framework and database for apps and games!
 ## Workflow
 
 ### Start Database Locally
+
 ```bash
 spacetime start --in-memory
 ```
 
 ### Generate module_bindings
+
 ```bash
 spacetime generate --lang typescript --module-path backend --out-dir frontend/src/module_bindings
 ```
 
 ### Build Module
+
 ```bash
 spacetime build --module-path backend
 ```
 
 ### Publish Module
+
 ```bash
 spacetime publish --server local --module-path backend
 ```
 
 ### Dev Server
+
 ```bash
 spacetime dev --module-path backend --module-bindings-path frontend/src/module_bindings --client-lang typescript --run "just dev-frontend"
 ```
@@ -122,7 +138,9 @@ spacetime dev --module-path backend --module-bindings-path frontend/src/module_b
 ## Basics
 
 ### Tables
+
 Here is how to define it in Rust:
+
 ```rust
 #[spacetimedb::table(accessor = person, public)]
 pub struct Person {
@@ -137,6 +155,7 @@ pub struct Person {
 ```
 
 Here is how to use it in Rust:
+
 ```rust
 // Table definition
 #[spacetimedb::table(accessor = player, public)]
@@ -149,7 +168,9 @@ ctx.db.player().insert(Player { /* ... */ });
 ---
 
 ### Reducers
+
 Here is how to define a reducer in Rust:
+
 ```rust
 use spacetimedb::{reducer, ReducerContext, Table};
 
@@ -174,7 +195,9 @@ pub fn create_user(ctx: &ReducerContext, name: String, email: String) -> Result<
 ---
 
 ### Subscriptions
+
 Here is how to subscribe to data in Rust:
+
 ```rust
 let conn = DbConnection::builder()
     .with_uri("wss://maincloud.spacetimedb.com")
@@ -197,6 +220,7 @@ conn.db.message().on_insert(on_message_inserted);
 ## Essentials
 
 ### Views
+
 ```rust
 // At-most-one row: return Option<T>
 #[view(accessor = my_player, public)]
@@ -223,6 +247,7 @@ fn players_for_level(ctx: &AnonymousViewContext) -> Vec<PlayerAndLevel> {
 ---
 
 ### Schedulers
+
 ```rust
 #[table(accessor = reminder_schedule, scheduled(send_reminder))]
 pub struct Reminder {
@@ -251,7 +276,10 @@ fn init(ctx: &ReducerContext) {
 }
 ```
 
+---
+
 ### Clients
+
 ```rust
 /// Read each line of standard input, and either set our name or send a message as appropriate.
 fn user_input_loop(ctx: &DbConnection) {
@@ -290,12 +318,15 @@ fn user_input_loop(ctx: &DbConnection) {
 ## Advanced
 
 ### Authentication
+
 - Clients building a connection should pass an OIDC token
   - You can use any identity provider you want (Keycloak, Auth0, ...)
   - If empty, SpacetimeDB will return an identity for you
 
 ### Authorization
+
 As mentioned before: Everything is programmable:
+
 ```rust
 #[spacetimedb::reducer]
 fn close_game(ctx: &ReducerContext, game_id: u64) {
@@ -314,6 +345,8 @@ fn close_game(ctx: &ReducerContext, game_id: u64) {
 ---
 
 ## Demo: Snake Online
-Now it is demo time! 
+
+Now it is demo time!
+
 - [GitHub](https://github.com/lukas-poos-openvalue/snake-online)
 - [Demo](https://snake.luke-homelab.de)
