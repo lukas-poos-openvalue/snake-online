@@ -3,7 +3,7 @@ default:
 
 # Starts the full application in development mode
 dev:
-    @spacetime dev --server local --delete-data
+    @spacetime dev --server local
 
 # Build the application parts
 build-prod:

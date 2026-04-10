@@ -13,6 +13,7 @@ import JoinGameReducer from "../join_game_reducer";
 import RestartGameReducer from "../restart_game_reducer";
 import SetNextDirectionReducer from "../set_next_direction_reducer";
 import SetUserNameReducer from "../set_user_name_reducer";
+import UpdateGameSpeedReducer from "../update_game_speed_reducer";
 
 export type CloseGameParams = __Infer<typeof CloseGameReducer>;
 export type CreateGameParams = __Infer<typeof CreateGameReducer>;
@@ -21,4 +22,5 @@ export type JoinGameParams = __Infer<typeof JoinGameReducer>;
 export type RestartGameParams = __Infer<typeof RestartGameReducer>;
 export type SetNextDirectionParams = __Infer<typeof SetNextDirectionReducer>;
 export type SetUserNameParams = __Infer<typeof SetUserNameReducer>;
+export type UpdateGameSpeedParams = __Infer<typeof UpdateGameSpeedReducer>;
 
