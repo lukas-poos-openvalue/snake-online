@@ -19,11 +19,15 @@ build-dev:
 
 # Builds an image with the development profile
 image-prod:
-    @docker build --build-arg profile=prod -t snake-online-frontend:latest .
+    @docker build --build-arg PROFILE=prod -t localhost/snake-online-frontend:latest .
 
 # Builds an image with the development profile
 image-dev:
-    @docker build --build-arg profile=dev -t snake-online-frontend:latest .
+    @docker build --build-arg PROFILE=dev -t localhost/snake-online-frontend:latest .
+
+# Run the frontend as a container (requires image to be built previously)
+container-run:
+    @docker run -d --name snake-online-frontend -p 4200:3000 localhost/snake-online-frontend:latest
 
 # Deploys the application a location
 deploy: image-prod

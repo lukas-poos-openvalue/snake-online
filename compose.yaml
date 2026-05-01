@@ -1,0 +1,20 @@
+---
+services:
+  backend:
+    image: localhost/snake-online-backend:latest
+    restart: no
+    ports:
+      - "3000:3000"
+    networks:
+      - snake-online
+  frontend:
+    image: localhost/snake-online-frontend:latest
+    restart: no
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+    networks:
+      - snake-online
+networks:
+  snake-online:

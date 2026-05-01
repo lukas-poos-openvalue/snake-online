@@ -18,12 +18,12 @@ publish-local:
     @spacetime publish --server local snake-online
 
 # Create an image with the production profile
-image-prod:
-    @docker build --build-arg profile=prod -t snake-online-backend:latest .
+image:
+    @docker build -t localhost/snake-online-backend:latest .
 
-# Create an image with the development profile
-image-dev:
-    @docker build --build-arg profile=dev -t snake-online-backend:latest .
+# Run the backend as a container (requires image to be built previously)
+container-run:
+    @docker run -d --name snake-online-backend -p 3000:3000 snake-online-backend:latest
 
 # Deploys the application to the maincloud
 deploy:

@@ -23,6 +23,17 @@ generate:
 publish-local:
     @cd backend; just publish-local
 
+image-dev:
+    @cd backend; just image
+    @cd frontend; just image-dev
+
+image-prod:
+    @cd backend; just image
+    @cd frontend; just image-prod
+
+container-run:
+    @docker compose up -d
+
 # Deploys the application
 deploy: build-prod
     @cd backend; just deploy
