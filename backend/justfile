@@ -12,7 +12,7 @@ _check:
 
 # Builds the image for this project
 build-image version profile="": _check
-    docker image build --build-arg {{profile}} -t {{registry}}/{{label}}:{{version}} -t {{registry}}/{{label}}:latest .
+    docker image build --build-arg PROFILE={{profile}} -t {{registry}}/{{label}}:{{version}} -t {{registry}}/{{label}}:latest .
 
 # Runs the image for this project as a container
 run-container version: _check
@@ -23,6 +23,6 @@ set-version version: _check
     cargo set-version {{version}}
 
 # Pushes the image to the registry
-push-image: _check
+push-image version: _check
     docker image push {{registry}}/{{label}}:{{version}}
 

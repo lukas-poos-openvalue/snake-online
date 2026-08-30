@@ -1,4 +1,4 @@
-FROM docker.io/clockworklabs/spacetime:v2.8.0 AS builder
+FROM docker.io/clockworklabs/spacetime:v2.8.3 AS builder
 
 WORKDIR /build
 USER root
@@ -9,7 +9,7 @@ RUN --mount=type=cache,target=/build/target \
     spacetime build --module-path . && \
     chmod +x entrypoint.sh
 
-FROM docker.io/clockworklabs/spacetime:v2.8.0 AS runner
+FROM docker.io/clockworklabs/spacetime:v2.8.3 AS runner
 
 WORKDIR /app
 COPY --from=builder /build/target/wasm32-unknown-unknown/release/snake_online_backend.wasm .

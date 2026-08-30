@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, effect, inject, OnDestroy } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  effect,
+  inject,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { injectReducer, injectSpacetimeDB, injectTable } from 'spacetimedb/angular';
 import { reducers, tables } from '../modules_bindings';
@@ -9,6 +16,7 @@ import { debounceTime, filter, Subject, Subscription } from 'rxjs';
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.css',
 })
 export class App implements OnDestroy, AfterViewInit {

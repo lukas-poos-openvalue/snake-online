@@ -1,4 +1,4 @@
-import { Component, linkedSignal, signal } from '@angular/core';
+import { Component, linkedSignal, signal, ChangeDetectionStrategy } from '@angular/core';
 import { injectReducer, injectTable } from 'spacetimedb/angular';
 import { reducers, tables } from '../../modules_bindings';
 
@@ -6,6 +6,7 @@ import { reducers, tables } from '../../modules_bindings';
   selector: 'app-lobby',
   imports: [],
   templateUrl: './lobby.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lobby.css',
 })
 export class Lobby {

@@ -2,7 +2,7 @@
   <section>
     <h2>Create Game</h2>
     <input type="text" [value]="newGameName()" (input)="newGameName.set($event.target.value)" />
-    <button (click)="createGame()">Create</button>
+    <button (click)="createGame()">Create!</button>
   </section>
   @if (joinableGames().isLoading) {
   <section>Loading...</section>

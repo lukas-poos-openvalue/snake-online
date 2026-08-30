@@ -1,4 +1,11 @@
-import { Component, computed, effect, HostListener, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  HostListener,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { injectReducer, injectSpacetimeDB, injectTable } from 'spacetimedb/angular';
 import { reducers, tables } from '../../modules_bindings';
 import { Direction } from '../../modules_bindings/types';
@@ -8,6 +15,7 @@ import { Router } from '@angular/router';
   selector: 'app-game',
   imports: [],
   templateUrl: './game.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './game.css',
 })
 export class Game {

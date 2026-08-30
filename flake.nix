@@ -36,6 +36,7 @@
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
           cocogitto
+          cargo-edit
           envsubst
           just
           kubectl
