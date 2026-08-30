@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.1.2 - 2026-08-30
+#### Bug Fixes
+- improve create game button label - (4604954) - Lukas Poos
+
+- - -
+
 ## 0.1.1 - 2026-08-30
 #### Bug Fixes
 - use correct git push command - (8f2bb10) - Lukas Poos
