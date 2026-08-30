@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.1.1 - 2026-08-30
+#### Bug Fixes
+- use correct git push command - (8f2bb10) - Lukas Poos
+
+- - -
+
 ## 0.1.0 - 2026-08-30
 #### Features
 - initial implementation - (7869655) - Lukas Poos
